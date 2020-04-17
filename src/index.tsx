@@ -2,6 +2,9 @@ import React from 'react';
 import { render } from 'react-dom';
 
 import App from './App';
+
+// Styles
+import './assets/styles/bootstrap-grid.min.css';
 import './assets/styles/index.scss';
 
 import * as serviceWorker from './serviceWorker';
