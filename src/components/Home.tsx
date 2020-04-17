@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { SearchComponent, StockTradeTable, StockTradeTableSummary } from '.';
+import {
+    SearchComponent,
+    StockTradeTable,
+    StockTradeTableSummary,
+    StockQuoteComponent,
+} from '.';
 import { tradeService } from '../services';
 import { StockTrade, ITradeSummary } from '../types';
 import { getTradeSummary } from '../utilities/get-trade-summary';
@@ -31,6 +36,7 @@ export function Home(props: IHomeProps): JSX.Element {
             <SearchComponent label="Search Symbols" onKeyup={setSearch} />
             <StockTradeTable trades={trades} />
             <StockTradeTableSummary summary={tradeSummary} />
+            <StockQuoteComponent />
         </div>
     );
 }
