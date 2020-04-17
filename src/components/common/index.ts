@@ -1,3 +1,2 @@
-import SearchComponent from './Search';
-
-export { SearchComponent };
+export * from './Navigation';
+export * from './Search';

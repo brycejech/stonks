@@ -5,7 +5,7 @@ export interface ISearchProps {
     onKeyup(val: string): void;
 }
 
-export default function SearchComponent(props: ISearchProps): JSX.Element {
+export function SearchComponent(props: ISearchProps): JSX.Element {
     const [search, setSearch] = useState('');
 
     return (

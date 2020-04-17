@@ -1,0 +1,9 @@
+@import 'variables';
+
+.app {
+    position: relative;
+}
+
+main {
+    padding-top: calc(#{$nav-height} + 2rem);
+}

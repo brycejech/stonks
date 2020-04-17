@@ -33,10 +33,21 @@ export function Home(props: IHomeProps): JSX.Element {
 
     return (
         <div className="home">
-            <SearchComponent label="Search Symbols" onKeyup={setSearch} />
-            <StockTradeTable trades={trades} />
-            <StockTradeTableSummary summary={tradeSummary} />
-            <StockQuoteComponent />
+            <div className="container">
+                <div className="row">
+                    <div className="col-6">
+                        <SearchComponent
+                            label="Search Symbols"
+                            onKeyup={setSearch}
+                        />
+                        <StockTradeTable trades={trades} />
+                        <StockTradeTableSummary summary={tradeSummary} />
+                    </div>
+                    <div className="col-6">
+                        <StockQuoteComponent />
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }

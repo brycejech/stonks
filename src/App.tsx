@@ -2,19 +2,21 @@ import React from 'react';
 import { Router } from '@reach/router';
 
 // Components
-import { Home, Symbol } from './components';
+import { Navigation, Home, Symbol } from './components';
 
 // Styles
-import './assets/styles/App.scss';
+import './assets/styles/app.scss';
 
 function App(): JSX.Element {
     return (
-        <div className="App">
-            <h1>Stonks</h1>
-            <Router>
-                <Home path="/" />
-                <Symbol path="/symbol/:symbol" />
-            </Router>
+        <div className="app">
+            <Navigation />
+            <main className="main">
+                <Router>
+                    <Home path="/" />
+                    <Symbol path="/symbol/:symbol" />
+                </Router>
+            </main>
         </div>
     );
 }
