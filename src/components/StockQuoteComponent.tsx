@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { finhubService, IStockQuote } from '../services';
+import { formatCurrency } from '../utilities';
 
 export function StockQuoteComponent(): JSX.Element {
     const [symbol, setSymbol] = useState<string>(''),
@@ -13,47 +14,55 @@ export function StockQuoteComponent(): JSX.Element {
 
     return (
         <div className="quote-container">
-            <label htmlFor="quote">
-                <strong>Get Quote</strong>
-                <br></br>
-            </label>
-            <input
-                type="text"
-                id="quote"
-                value={symbol}
-                onChange={(e): void => {
-                    const val = e.target.value.toUpperCase();
-                    e.target.value = val;
-                    setSymbol(val);
-                }}
-            />
-
-            <button
-                onClick={(): void => {
+            <form
+                onSubmit={(e): void => {
+                    e.preventDefault();
                     getQuote();
                 }}
             >
-                Search
-            </button>
-
-            <table>
-                <thead>
-                    <tr>
-                        <th>Current Price</th>
-                        <th>Open</th>
-                        <th>High</th>
-                        <th>Low</th>
-                        <th>Previous Close</th>
-                    </tr>
-                </thead>
+                <div className="form-group">
+                    <label htmlFor="quote">
+                        <strong>Get Quote</strong>
+                        <br></br>
+                    </label>
+                    <input
+                        type="text"
+                        id="quote"
+                        value={symbol}
+                        onChange={(e): void => {
+                            const val = e.target.value.toUpperCase();
+                            e.target.value = val;
+                            setSymbol(val);
+                        }}
+                    />
+                </div>
+            </form>
+            <table className="inverted text-left">
                 {quote && (
                     <tbody>
                         <tr>
-                            <td>{quote.currentPrice}</td>
-                            <td>{quote.openPrice}</td>
-                            <td>{quote.highPrice}</td>
-                            <td>{quote.lowPrice}</td>
-                            <td>{quote.previousClose}</td>
+                            <th className="shrink">Symbol</th>
+                            <td>{symbol}</td>
+                        </tr>
+                        <tr>
+                            <th className="shrink">Current</th>
+                            <td>{formatCurrency(quote.currentPrice)}</td>
+                        </tr>
+                        <tr>
+                            <th className="shrink">Open</th>
+                            <td>{formatCurrency(quote.openPrice)}</td>
+                        </tr>
+                        <tr>
+                            <th className="shrink">High</th>
+                            <td>{formatCurrency(quote.highPrice)}</td>
+                        </tr>
+                        <tr>
+                            <th className="shrink">Low</th>
+                            <td>{formatCurrency(quote.lowPrice)}</td>
+                        </tr>
+                        <tr>
+                            <th className="shrink">Prev Close</th>
+                            <td>{formatCurrency(quote.previousClose)}</td>
                         </tr>
                     </tbody>
                 )}

@@ -1,0 +1,40 @@
+@import 'variables';
+
+form {
+    display: block;
+    width: 100%;
+}
+
+.form-group {
+    display: block;
+    margin-bottom: 1rem;
+    width: 100%;
+
+    label {
+        display: block;
+        width: 100%;
+        margin-bottom: 0.175rem;
+        font-weight: bold;
+    }
+
+    .input-group {
+        display: block;
+        width: 100%;
+    }
+
+    input[type='text'],
+    input[type='date'],
+    input[type='email'],
+    input[type='number'],
+    input[type='password'],
+    textarea {
+        display: block;
+        width: 100%;
+        padding: 6px 10px;
+        color: $dark-gray;
+        font-size: 16px;
+        font-weight: 300;
+        border: 1px solid rgba($dark-gray, 0.2);
+        border-radius: $border-radius;
+    }
+}

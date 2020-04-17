@@ -12,8 +12,8 @@ export function StockTradeTable(props: IStockTradeTableProps): JSX.Element {
         <table className="stock-trade-table">
             <thead>
                 <tr>
-                    <th>Symbol</th>
-                    <th>Trade Type</th>
+                    <th className="shrink">Symbol</th>
+                    <th className="shrink">Trade Type</th>
                     <th>Date</th>
                     <th>Price</th>
                     <th>Quantity</th>
@@ -27,8 +27,8 @@ export function StockTradeTable(props: IStockTradeTableProps): JSX.Element {
                     );
                     return (
                         <tr key={t.id}>
-                            <td>{t.symbol}</td>
-                            <td>{t.tradeType}</td>
+                            <td className="shrink">{t.symbol}</td>
+                            <td className="shrink">{t.tradeType}</td>
                             <td>{formatDate(t.date)}</td>
                             <td>{formatCurrency(t.price)}</td>
                             <td>{t.quantity}</td>

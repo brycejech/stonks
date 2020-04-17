@@ -4,6 +4,17 @@
     position: relative;
 }
 
+.sidebar-wrapper {
+    position: fixed;
+    width: $sidebar-width;
+    height: 100%;
+    padding: calc(#{$nav-height} + 2rem) 1.2rem;
+    background-color: lighten($dark-gray, 6%);
+    color: white;
+}
+
 main {
     padding-top: calc(#{$nav-height} + 2rem);
+    width: calc(100% - #{$sidebar-width});
+    margin-left: $sidebar-width;
 }

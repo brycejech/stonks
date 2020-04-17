@@ -1,11 +1,12 @@
 @import 'variables';
 
 nav {
+    z-index: 1000;
     position: fixed;
     display: block;
     width: 100%;
     height: $nav-height;
-    padding: 0 2rem;
+    padding: 1.5rem 2rem;
 
     background-color: $dark-gray;
     color: white;
