@@ -8,6 +8,12 @@ export interface IHomeProps {
     path: string;
 }
 
+(async () => {
+    const optionsTrades = await tradeService.getOptionsTrades();
+
+    console.log(optionsTrades);
+})();
+
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 // eslint-disable-next-line no-unused-vars
 export function Home(props: IHomeProps): JSX.Element {

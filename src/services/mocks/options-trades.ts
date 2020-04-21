@@ -1,10 +1,11 @@
-import { OptionsTrade, OptionContract } from '../../types';
+import { OptionsTrade } from '../../types';
 
 export const optionsTrades: OptionsTrade[] = [
     // SPY call-debit spread
     {
         id: 1,
         type: '',
+        optionTradeType: '',
         symbol: 'SPY',
         debits: 0,
         credits: 0,
@@ -36,6 +37,7 @@ export const optionsTrades: OptionsTrade[] = [
     {
         id: 2,
         type: '',
+        optionTradeType: '',
         symbol: 'CCL',
         debits: 0,
         credits: 0,
@@ -67,6 +69,7 @@ export const optionsTrades: OptionsTrade[] = [
     {
         id: 3,
         type: '',
+        optionTradeType: '',
         symbol: 'NCLH',
         debits: 0,
         credits: 0,
@@ -98,6 +101,7 @@ export const optionsTrades: OptionsTrade[] = [
     {
         id: 4,
         type: '',
+        optionTradeType: '',
         symbol: 'LB',
         debits: 0,
         credits: 0,
@@ -129,6 +133,7 @@ export const optionsTrades: OptionsTrade[] = [
     {
         id: 5,
         type: '',
+        optionTradeType: '',
         symbol: 'SNAP',
         debits: 0,
         credits: 0,
@@ -177,177 +182,3 @@ export const optionsTrades: OptionsTrade[] = [
         ],
     },
 ];
-
-function isCallDebitSpread(trade: OptionsTrade): boolean {
-    const calls: OptionContract[] = trade.options.filter(
-        (t) => (t.optionType = 'Call')
-    );
-
-    if (!calls.length) return false;
-
-    const buys: OptionContract[] = calls.filter((t) => t.tradeType === 'Buy');
-    const sells: OptionContract[] = calls.filter((t) => t.tradeType === 'Sell');
-
-    if (!(buys.length && sells.length)) return false;
-
-    let highestBuy: OptionContract = buys[0];
-    for (const trade of buys) {
-        if (trade.strikePrice > highestBuy.strikePrice) {
-            highestBuy = trade;
-        }
-    }
-
-    let lowestSell: OptionContract = sells[0];
-    for (const trade of sells) {
-        if (trade.strikePrice < lowestSell.strikePrice) {
-            lowestSell = trade;
-        }
-    }
-
-    if (highestBuy.strikePrice < lowestSell.strikePrice) return true;
-
-    return false;
-}
-
-function isCallCreditSpread(trade: OptionsTrade): boolean {
-    const calls: OptionContract[] = trade.options.filter(
-        (t) => t.optionType === 'Call'
-    );
-
-    if (!calls.length) return false;
-
-    const buys: OptionContract[] = calls.filter((t) => t.tradeType === 'Buy');
-    const sells: OptionContract[] = calls.filter((t) => t.tradeType === 'Sell');
-
-    let lowestBuy: OptionContract = buys[0];
-    for (const trade of buys) {
-        if (trade.strikePrice < lowestBuy.strikePrice) {
-            lowestBuy = trade;
-        }
-    }
-
-    let highestSell: OptionContract = sells[0];
-    for (const trade of sells) {
-        if (trade.strikePrice > highestSell.strikePrice) {
-            highestSell = trade;
-        }
-    }
-
-    if (highestSell.strikePrice < lowestBuy.strikePrice) return true;
-
-    return false;
-}
-
-function isPutCreditSpread(trade: OptionsTrade): boolean {
-    const puts: OptionContract[] = trade.options.filter(
-        (t) => t.optionType === 'Put'
-    );
-
-    if (!puts.length) return false;
-
-    const buys: OptionContract[] = puts.filter((p) => p.tradeType === 'Buy');
-    const sells: OptionContract[] = puts.filter((p) => p.tradeType === 'Sell');
-
-    if (!(buys.length && sells.length)) return false;
-
-    let lowestSell: OptionContract = sells[0];
-    for (const trade of sells) {
-        if (trade.strikePrice < lowestSell.strikePrice) {
-            lowestSell = trade;
-        }
-    }
-
-    let highestBuy: OptionContract = buys[0];
-    for (const trade of buys) {
-        if (trade.strikePrice > highestBuy.strikePrice) {
-            highestBuy = trade;
-        }
-    }
-
-    if (lowestSell.strikePrice > highestBuy.strikePrice) return true;
-
-    return false;
-}
-
-function isPutDebitSpread(trade: OptionsTrade): boolean {
-    const puts: OptionContract[] = trade.options.filter(
-        (t) => t.optionType === 'Put'
-    );
-
-    if (!puts.length) return false;
-
-    const buys: OptionContract[] = puts.filter((p) => p.tradeType === 'Buy');
-    const sells: OptionContract[] = puts.filter((p) => p.tradeType === 'Sell');
-
-    if (!(buys.length && sells.length)) return false;
-
-    let lowestBuy: OptionContract = buys[0];
-    for (const trade of buys) {
-        if (trade.strikePrice < lowestBuy.strikePrice) {
-            lowestBuy = trade;
-        }
-    }
-
-    let highestSell: OptionContract = sells[0];
-    for (const trade of sells) {
-        if (trade.strikePrice > highestSell.strikePrice) {
-            highestSell = trade;
-        }
-    }
-
-    if (lowestBuy.strikePrice > highestSell.strikePrice) return true;
-
-    return false;
-}
-
-function isIronCondor(trade: OptionsTrade): boolean {
-    return isCallCreditSpread(trade) && isPutCreditSpread(trade);
-}
-
-// function isBoxSpread(trade: OptionsTrade): boolean {
-//     return isCallDebitSpread(trade) && isPutDebitSpread(trade);
-// }
-
-console.log(Array(25).fill('-').join(''));
-console.log(
-    `${optionsTrades[0].symbol} isCallDebitSpread: ${isCallDebitSpread(
-        optionsTrades[0]
-    )}`
-);
-
-console.log(
-    `${optionsTrades[1].symbol} isCallCreditSpread: ${isCallCreditSpread(
-        optionsTrades[1]
-    )}`
-);
-
-console.log(
-    `${optionsTrades[2].symbol} isPutCreditSpread: ${isPutCreditSpread(
-        optionsTrades[2]
-    )}`
-);
-
-console.log(
-    `${optionsTrades[3].symbol} isPutDebitSpread: ${isPutDebitSpread(
-        optionsTrades[3]
-    )}`
-);
-
-console.log(
-    `${optionsTrades[4].symbol} isIronCondor: ${isIronCondor(optionsTrades[4])}`
-);
-
-console.log(
-    `${optionsTrades[4].symbol} isCallCreditSpread: ${isCallCreditSpread(
-        optionsTrades[4]
-    )}`
-);
-
-console.log(
-    `${optionsTrades[4].symbol} isPutCreditSpread: ${isPutCreditSpread(
-        optionsTrades[4]
-    )}`
-);
-console.log(Array(25).fill('-').join(''));
-
-// console.log(`isBoxSpread: ${isBoxSpread(optionsTrades[0])}`);
